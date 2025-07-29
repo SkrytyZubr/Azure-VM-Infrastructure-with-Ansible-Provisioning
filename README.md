@@ -82,7 +82,14 @@ git clone https://github.com/SkrytyZubr/azure-vm-infra-ansible.git
 cd azure-vm-infra-ansible
 ```
 
-### 2. Configure Terraform Variables
+### 2. Install Ansible Azure Collection and Dependencies
+
+```bash
+ansible-galaxy collection install azure.azcollection:1.11.0
+pip install -r ~/.ansible/collections/ansible_collections/azure/azcollection/requirements-azure.txt
+```
+
+### 3. Configure Terraform Variables
 
 Update your `main.tf`:
 
@@ -93,14 +100,14 @@ ssh_keys {
 }
 ```
 
-### 3. Deploy the Infrastructure
+### 4. Deploy the Infrastructure
 
 ```bash
 terraform init
 terraform apply
 ```
 
-### 4. Configure Ansible Inventory (optional)
+### 5. Configure Ansible Inventory (optional)
 
 ```bash
 [webserver]
@@ -110,7 +117,7 @@ appvm ansible_host=<appvm_public_ip>
 dbvm ansible_host=<dbvm_public_ip>
 ```
 
-### 5. Run Ansible Playbook
+### 6. Run Ansible Playbook
 
 ```bash
 ansible-playbook -i inventory.txt playbook.yml -u <admin_username> --private-key ~/.ssh/azure_vm_key
