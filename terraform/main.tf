@@ -29,6 +29,9 @@ module "app_vm" {
   resource_group = azurerm_resource_group.rg.name
   public_ip_dns  = "appvmdevopsmc"
   enable_http    = true
+  tags = {
+    role = "webserver"
+  }
   admin_username = var.admin_username
 }
 
@@ -40,5 +43,8 @@ module "db_vm" {
   resource_group = azurerm_resource_group.rg.name
   public_ip_dns  = "dbvmdevopsmc"
   enable_http    = false
+  tags = {
+    role = "database"
+  }
   admin_username = var.admin_username
 }
