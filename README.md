@@ -3,11 +3,11 @@
 This project uses **Terraform** to provision two virtual machines in **Microsoft Azure**, and **Ansible** to configure the application server. The infrastructure is modular and secure, with separate configurations for application and database VMs.
 
 ## Features
-- ☁️ Infrastructure as Code with Terraform
-- 🔐 Secure SSH key-based login
-- 🛡️ Separate NSG rules: HTTP access only to `appvm`, SSH access to both
-- 🤖 Automated provisioning of NGINX via Ansible
-- 📦 Modular design using reusable Terraform modules
+- ☁️ **Infrastructure as Code** with Terraform  
+- 🔐 **Secure SSH key-based login**  
+- 🛡️ **Separate NSG rules**: HTTP access only to `appvm`, SSH access to both  
+- 🤖 **Automated provisioning** of NGINX and MySQL via Ansible  
+- 📦 **Modular design** using reusable Terraform modules 
 
 ## Infrastructure Overview
 
@@ -54,13 +54,21 @@ Azure
 │   │        └── tasks
 │   │          └── main.tf
 │   ├── playbook.yml
+│   ├── azure_rm.yaml
 │   └── inventory.txt
 └── README.md
 ```
 
 ## Prerequisites
 
-- ✅ Azure CLI (logged in: `az login`)
+- ✅ Azure credentials exported as environment variables:
+
+  ```bash
+  export ARM_CLIENT_ID="xxx"
+  export ARM_CLIENT_SECRET="xxx"
+  export ARM_SUBSCRIPTION_ID="xxx"
+  export ARM_TENANT_ID="xxx"
+  ```
 - ✅ Terraform
 - ✅ Ansible (on WSL/Linux/macOS)
 - ✅ SSH key pair (public key path needed in `main.tf`)
@@ -92,10 +100,20 @@ terraform init
 terraform apply
 ```
 
-### 4. Run Ansible Playbook
+### 4. Configure Ansible Inventory (optional)
 
 ```bash
-ansible-playbook -i inventory playbook.yml
+[webserver]
+appvm ansible_host=<appvm_public_ip>
+
+[database]
+dbvm ansible_host=<dbvm_public_ip>
+```
+
+### 5. Run Ansible Playbook
+
+```bash
+ansible-playbook -i inventory.txt playbook.yml -u <admin_username> --private-key ~/.ssh/azure_vm_key
 ```
 
 ## Access the Web Server
