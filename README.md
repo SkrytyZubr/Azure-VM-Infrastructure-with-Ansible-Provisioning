@@ -42,17 +42,17 @@ Azure
 │         └── outputs.tf
 ├── ansible
 │   ├── roles
-│     └── vm
-│         ├── mysql
-│           ├── default
-│             └── main.tf
-│           ├── defaults
-│             └── main.tf
-│           └── tasks
-│             └── main.tf
-│         └── nginx
-│           └── tasks
-│             └── main.tf
+│   │  └── vm
+│   │      ├── mysql
+│   │      │  ├── default
+│   │      │  │  └── main.tf
+│   │      │  ├── defaults
+│   │      │  │  └── main.tf
+│   │      │  └── tasks
+│   │      │    └── main.tf
+│   │      └── nginx
+│   │        └── tasks
+│   │          └── main.tf
 │   ├── playbook.yml
 │   └── inventory.txt
 └── README.md
