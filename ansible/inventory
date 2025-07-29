@@ -1,0 +1,4 @@
+[app]
+4.180.40.58 ansible_user=adminmichal ansible_ssh_private_key_file=~/.ssh/azure_vm_key
+[db]
+4.210.184.190 ansible_user=adminmichal ansible_ssh_private_key_file=~/.ssh/azure_vm_key

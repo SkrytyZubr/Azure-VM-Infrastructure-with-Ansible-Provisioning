@@ -1,0 +1,17 @@
+- name: Update apt cache
+  apt:
+    update_cache: yes
+  become: true
+
+- name: Install and check nginx latest version
+  apt:
+    name: nginx
+    state: latest
+  become: true
+
+- name: Start nginx
+  service:
+    name: nginx
+    state: started
+    enabled: true
+  become: true

@@ -1,0 +1,9 @@
+---
+- hosts: app
+  become: true
+  roles:
+    - ngnix
+- hosts: db
+  become: true
+  roles:
+    - mysql
